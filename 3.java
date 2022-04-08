@@ -7,8 +7,8 @@ public class Main {
             new Person("Alice", 88),
             new Person("Lily", 75),
         };
-
-
+        Arrays.sort(ps);
+        System.out.println(Arrays.toString(ps));
     }
 }
 
@@ -20,10 +20,9 @@ class Person implements Comparable<Person> {
         this.name = name;
         this.score = score;
     }
-
-    
-
-    
+    public int compareTo(Person other) {
+        return this.name.compareTo(other.name);
+    }
     public String toString() {
         return this.name + "," + this.score;
     }
