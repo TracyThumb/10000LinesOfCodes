@@ -14,7 +14,6 @@ public class Main {
         for (int i = start; i <= end; i++) {
             list.add(i);
         }
-        // 随机删除List中的一个元素:
         int removed = list.remove((int) (Math.random() * list.size()));
         int found = findMissingNumber(start, end, list);
         System.out.println(list.toString());
