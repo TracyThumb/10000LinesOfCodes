@@ -27,8 +27,8 @@ class Person {
     public boolean equals(Object o) {
         if (o instanceof Person) {
             Person p = (Person) o;
-            return Objects.equals(this.firstName, p.firstName) && Objects.equals(this.lastName,p.lastName) && this.age == p.age;       
-         }
+            return Objects.equals(this.firstName, p.firstName) && Objects.equals(this.lastName, p.lastName) && this.age == p.age;
+        }
         return false;
     }
 }
