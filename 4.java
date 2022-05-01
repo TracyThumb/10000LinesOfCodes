@@ -15,35 +15,35 @@ public class Main {
 }
 
 class Students {
-
-    
-
-
-
-    
+    List<Student> list;
+    Map<String, Integer> cache;
+    Students(List<Student> list) {
+        this.list = list;
+        cache = new HashMap<>();
+    }
     /**
      * 根据name查找score，找到返回score，未找到返回-1
      */
-
-
-
-
-
-
-
-
-
-
-    
+    int getScore(String name) {
+        // 先在Map中查找:
+        Integer score = this.cache.get(name);
+        if (score == null) {
+            score = this.findInList(name);
+            if (score != null) {
+                this.cache.put(name, score);
+            }
+        }
+        return score == null ? -1 : score.intValue();
+    }
     // 原始方法
-
-
-
-
-
-
-
-
+    Integer findInList(String name) {
+        for (var ss : this.list) {
+            if (ss.name.equals(name)) {
+                return ss.score;
+            }
+        }
+        return null;
+    }
 }
 
 class Student {
