@@ -1,34 +1,16 @@
-// 定义了Student类，并用分数score进行排序，高分在前
-import java.util.*;
+import java.io.*;
+import java.util.Properties;
+// 2022年5月2日-从内存读取一个字节流-begin
 public class Main {
-    public static void main(String[] args) {
-        Map<Student, Integer> map = new TreeMap<>(new Comparator<Student>() {
-            public int compare(Student p1, Student p2) {
-                if (p1.score == p2.score) {
-                    return 0;
-                }
-                return p1.score > p2.score ? -1 : 1;
-            }
-        });
-        map.put(new Student("Tom", 77), 1);
-        map.put(new Student("Bob", 66), 2);
-        map.put(new Student("Lily", 99), 3);
-        for (Student key : map.keySet()) {
-            System.out.println(key);
-        }
-        System.out.println(map.get(new Student("Bob", 66))); // null?
+    public static void main(String[] args) throws IOException {
+        String settings = "# test" + "\n" + "course=Java" + "\n" + "last_open_date=2019-08-07T12:35:01";
+        ByteArrayInputStream input = new ByteArrayInputStream(settings.getBytes("UTF-8"));
+        Properties props = new Properties();
+        props.load(input);
+
+        System.out.println("course: " + props.getProperty("course"));
+        System.out.println("last_open_date: " + props.getProperty("last_open_date"));
+        System.out.println("last_open_file: " + props.getProperty("last_open_file"));
+        System.out.println("auto_save: " + props.getProperty("auto_save", "60"));
     }
 }
-
-class Student {
-    public String name;
-    public int score;
-    Student(String name, int score) {
-        this.name = name;
-        this.score = score;
-    }
-    public String toString() {
-        return String.format("{%s: score=%d}", name, score);
-    }
-}
-

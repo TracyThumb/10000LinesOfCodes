@@ -14,3 +14,4 @@
 2022年5月1日-用 map 缓存数据，提升 list 的查找效率-end
 2022年5月1日-TreeMap,定义了Student类，并用分数score进行排序，高分在前-begin
 2022年5月2日-TreeMap,定义了Student类，并用分数score进行排序，高分在前-end
+2022年5月2日-从内存读取一个字节流-begin
