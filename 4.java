@@ -19,7 +19,18 @@ public class Main {
 
     static List<Message> process(List<Message> received) {
         // TODO: 按sequence去除重复消息
-        
+        Set<Message> set = new TreeSet<>(new Comparator<Message>() {
+            public int compare(Message m1, Message m2) {
+                if (m1.sequence == m2.sequence) {
+                    return 0;
+                }
+                return m1.sequence > m2.sequence ? -1 : 1;
+            }
+        });
+        for (Message m : received) {
+            set.add(m);
+        }
+        return new ArrayList<Message>(set);
     }
 }
 
