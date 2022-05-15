@@ -1,43 +1,32 @@
-import java.util.Comparator;
-import java.util.PriorityQueue;
-import java.util.Queue;
+import java.util.*;
+
 public class Main {
     public static void main(String[] args) {
-        Queue<User> q = new PriorityQueue<>(new UserComparator());
-        // 添加3个元素到队列:
-        q.offer(new User("Bob", "A1"));
-        q.offer(new User("Alice", "A2"));
-        q.offer(new User("Boss", "V1"));
-        System.out.println(q.poll());
-        System.out.println(q.poll());
-        System.out.println(q.poll());
-        System.out.println(q.poll());
-    }
-}
-
-class UserComparator implements Comparator<User> {
-    public int compare(User u1, User u2) {
-        if (u1.number.charAt(0) == u2.number.charAt(0)) {
-            return u1.number.compareTo(u2.number);
-        }
-        if((u1.number.charAt(0) == 'V') {
-            return -1;
+        String hex = toHex(12500);
+        if (hex.equalsIgnoreCase("30D4")) {
+            System.out.println("测试通过");
         } else {
-            return 1;
+            System.out.println("测试失败");
         }
     }
-}
 
-class User {
-    public final String name;
-    public final String number;
+    static String toHex(int n) {
+    	//创建栈
+    	Deque<String> stack = new ArrayDeque<>();
+    	
+    	while(n > 0)
+    	{
+    		stack.push(Integer.toHexString(n%16));
+    		n /= 16;
+    	}
+    	
+    	StringBuilder answer = new StringBuilder();
 
-    public User(String name, String number) {
-        this.name = name;
-        this.number = number;
-    }
-
-    public String toString() {
-        return name + "/" + number;
+    	int size = stack.size();
+    	for(int i = 0; i < size; i++) {
+    		answer.append(stack.pop());
+		}
+    	
+    	return answer.toString();
     }
 }
