@@ -1,44 +1,43 @@
-// 在聊天软件中，发送方发送消息时，遇到网络超时后就会自动重发，因此，接收方可能会收到重复的消息，在显示给用户看的时候，需要首先去重。
-// 请练习使用Set去除重复的消息：
-import java.util.*;
+import java.util.Comparator;
+import java.util.PriorityQueue;
+import java.util.Queue;
 public class Main {
     public static void main(String[] args) {
-        List<Message> received = List.of(
-            new Message(1, "Hello!"),
-            new Message(2, "发工资了吗？"),
-            new Message(2, "发工资了吗？"),
-            new Message(3, "去哪吃饭？"),
-            new Message(3, "去哪吃饭？"),
-            new Message(4, "Bye")
-        );
-        List<Message> displayMessages = process(received);
-        for (Message message : displayMessages) {
-            System.out.println(message.text);
-        }
-    }
-
-    static List<Message> process(List<Message> received) {
-        // TODO: 按sequence去除重复消息
-        Set<Message> set = new TreeSet<>(new Comparator<Message>() {
-            public int compare(Message m1, Message m2) {
-                if (m1.sequence == m2.sequence) {
-                    return 0;
-                }
-                return m1.sequence > m2.sequence ? -1 : 1;
-            }
-        });
-        for (Message m : received) {
-            set.add(m);
-        }
-        return new ArrayList<Message>(set);
+        Queue<User> q = new PriorityQueue<>(new UserComparator());
+        // 添加3个元素到队列:
+        q.offer(new User("Bob", "A1"));
+        q.offer(new User("Alice", "A2"));
+        q.offer(new User("Boss", "V1"));
+        System.out.println(q.poll());
+        System.out.println(q.poll());
+        System.out.println(q.poll());
+        System.out.println(q.poll());
     }
 }
 
-class Message {
-    public final int sequence;
-    public final String text;
-    public Message(int sequence, String text) {
-        this.sequence = sequence;
-        this.text = text;
+class UserComparator implements Comparator<User> {
+    public int compare(User u1, User u2) {
+        if (u1.number.charAt(0) == u2.number.charAt(0)) {
+            return u1.number.compareTo(u2.number);
+        }
+        if((u1.number.charAt(0) == 'V') {
+            return -1;
+        } else {
+            return 1;
+        }
+    }
+}
+
+class User {
+    public final String name;
+    public final String number;
+
+    public User(String name, String number) {
+        this.name = name;
+        this.number = number;
+    }
+
+    public String toString() {
+        return name + "/" + number;
     }
 }
