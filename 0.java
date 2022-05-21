@@ -1,26 +1,47 @@
+// 一个简单的Iterator示例如下，它总是以倒序遍历集合
 import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        String hex = toHex(12500);
-        if (hex.equalsIgnoreCase("30D4")) {
-            System.out.println("测试通过");
-        } else {
-            System.out.println("测试失败");
+        ReverseList<String> rlist = new ReverseList<>();
+        rlist.add("Apple");
+        rlist.add("Orange");
+        rlist.add("Pear");
+        for (String s : rlist) {
+            System.out.println(s);
         }
     }
+}
 
-    static String toHex(int n) {
-        Deque<String> stack = new ArrayDeque<>();
-        while (n > 0) {
-            stack.push(Integer.toHexString(n % 16));
-            n /= 16;
+class ReverseList<T> implements Iterable<T> {
+
+    private List<T> list = new ArrayList<>();
+
+    public void add(T t) {
+        list.add(t);
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return new ReverseIterator(list.size());
+    }
+
+    class ReverseIterator implements Iterator<T> {
+        int index;
+
+        ReverseIterator(int index) {
+            this.index = index;
         }
-        StringBuilder answer = new StringBuilder();
-        int size = stack.size();
-        for (int i = 0; i < size; i++) {
-            answer.append(stack.pop());
+
+        @Override
+        public boolean hasNext() {
+            return index > 0;
         }
-        return answer.toString();
+
+        @Override
+        public T next() {
+            index--;
+            return ReverseList.this.list.get(index);
+        }
     }
 }
